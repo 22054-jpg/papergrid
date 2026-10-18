@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IGCSE Past Papers Archive</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif'],serif:['"Source Serif 4"','Georgia','serif']},colors:{navy:{950:'#0B1B3A',900:'#12264A',800:'#1B3566',700:'#264A8A',100:'#E3EAF6',50:'#F1F5FB'}}}}};
+</script>
+<style>
+body{background:#F6F8FB}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #7FA2E0;outline-offset:2px}
+@keyframes pop{from{opacity:0;transform:scale(.96) translateY(6px)}}
+.pop{animation:pop .16s ease-out}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body class="font-sans text-slate-700 antialiased min-h-screen flex flex-col">
+
+<header class="sticky top-0 z-30 bg-navy-900 text-white shadow">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center gap-3">
+    <a href="#/" class="flex items-center gap-2 font-serif font-bold text-lg shrink-0">
+      <span class="grid place-items-center w-9 h-9 rounded-lg bg-white text-navy-900">PP</span><span class="hidden md:inline">Past Papers Archive</span></a>
+    <nav class="flex gap-1 text-sm">
+      <a href="#/" data-nav="home" class="px-3 py-1.5 rounded-md hover:bg-white/10">Home</a>
+      <a href="#/subjects" data-nav="subjects" class="px-3 py-1.5 rounded-md hover:bg-white/10">Subjects</a>
+    </nav>
+    <div id="authArea" class="ml-auto flex items-center gap-2"></div>
+  </div>
+</header>
+
+<main class="flex-1 w-full">
+  <!-- HOME -->
+  <section id="v-home">
+    <div class="bg-navy-900 text-white">
+      <div class="max-w-6xl mx-auto px-4 py-14 sm:py-20">
+        <h1 class="font-serif font-bold text-4xl sm:text-5xl max-w-2xl leading-tight">Practise with real IGCSE past papers and mark schemes</h1>
+        <p class="mt-4 text-blue-100 max-w-xl">Pick a subject, choose a year and session, then open the question paper and check yourself against the mark scheme.</p>
+        <div class="relative mt-8 max-w-lg">
+          <label for="heroQ" class="sr-only">Search subjects</label>
+          <input id="heroQ" autocomplete="off" placeholder="Search a subject, e.g. Chemistry or 0620" class="w-full rounded-lg bg-white text-slate-800 placeholder-slate-400 px-4 py-3 text-sm">
+          <ul id="heroList" class="hidden absolute left-0 right-0 mt-1 bg-white text-slate-800 rounded-lg shadow-xl overflow-hidden text-sm z-10"></ul>
+        </div>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a href="#/subjects" class="px-5 py-2.5 rounded-lg bg-white text-navy-900 font-semibold text-sm hover:bg-navy-100">Browse all subjects</a>
+          <button data-ai class="px-5 py-2.5 rounded-lg border border-white/40 font-semibold text-sm hover:bg-white/10">Ask the study assistant</button>
+        </div>
+        <dl class="mt-12 grid grid-cols-3 max-w-md gap-4 text-center sm:text-left">
+          <div><dd class="font-serif text-3xl font-bold" data-count="17">0</dd><dt class="text-xs text-blue-200">subjects</dt></div>
+          <div><dd class="font-serif text-3xl font-bold" data-count="11">0</dd><dt class="text-xs text-blue-200">years, 2015 to 2025</dt></div>
+          <div><dd class="font-serif text-3xl font-bold" data-count="2">0</dd><dt class="text-xs text-blue-200">sessions a year</dt></div>
+        </dl>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 py-14">
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-navy-900">What you can do here</h2>
+      <div id="features" class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-navy-900 mt-14">How it works</h2>
+      <ol class="mt-6 grid gap-4 md:grid-cols-3">
+        <li class="bg-white border border-slate-200 rounded-xl p-5"><span class="font-serif text-2xl font-bold text-navy-700">1</span><p class="font-semibold text-navy-900 mt-1">Pick a subject</p><p class="text-sm text-slate-500 mt-1">Search by name or code, or filter by group.</p></li>
+        <li class="bg-white border border-slate-200 rounded-xl p-5"><span class="font-serif text-2xl font-bold text-navy-700">2</span><p class="font-semibold text-navy-900 mt-1">Choose year and session</p><p class="text-sm text-slate-500 mt-1">May/June or Oct/Nov, with each paper and variant listed.</p></li>
+        <li class="bg-white border border-slate-200 rounded-xl p-5"><span class="font-serif text-2xl font-bold text-navy-700">3</span><p class="font-semibold text-navy-900 mt-1">Practise and check</p><p class="text-sm text-slate-500 mt-1">Open the paper, then switch to its mark scheme to mark your work.</p></li>
+      </ol>
+      <div id="cta" class="mt-14 rounded-2xl bg-navy-50 border border-navy-100 p-8 text-center"></div>
+    </div>
+  </section>
+
+  <!-- SUBJECTS -->
+  <section id="v-subjects" class="hidden max-w-6xl mx-auto px-4 py-8">
+    <h1 class="font-serif text-3xl font-bold text-navy-900">Subjects</h1>
+    <div class="mt-4 relative max-w-xl">
+      <label for="q" class="sr-only">Search subjects</label>
+      <input id="q" type="search" autocomplete="off" placeholder="Search by subject name or code (press / to focus)" class="w-full rounded-lg bg-white border border-slate-300 px-4 py-2.5 text-sm">
+    </div>
+    <div id="chips" class="mt-4 flex flex-wrap gap-2"></div>
+    <p id="count" class="text-sm text-slate-500 mt-4" aria-live="polite"></p>
+    <div id="grid" class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+    <div id="empty" class="hidden text-center py-16 bg-white border border-slate-200 rounded-xl mt-3">
+      <p class="font-serif text-xl text-navy-900">No subjects match</p><p class="text-slate-500 mt-1">Check the spelling, try a code, or clear the filter.</p></div>
+  </section>
+
+  <!-- SUBJECT -->
+  <section id="v-subject" class="hidden max-w-6xl mx-auto px-4 py-8"></section>
+</main>
+
+<footer class="border-t border-slate-200 bg-white"><div class="max-w-6xl mx-auto px-4 py-5 text-xs text-slate-500">Not affiliated with Cambridge Assessment International Education. Papers are for study use.</div></footer>
+
+<!-- Overlays -->
+<div id="modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 grid place-items-center p-4"><div id="modalBox" class="pop bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[92vh] overflow-y-auto"></div></div>
+<div id="toasts" class="fixed bottom-4 left-4 z-[60] flex flex-col gap-2" aria-live="polite"></div>
+
+<button data-ai id="aiBtn" class="fixed bottom-4 right-4 z-40 flex items-center gap-2 pl-4 pr-5 py-3 rounded-full bg-navy-900 text-white shadow-lg hover:bg-navy-800 text-sm font-semibold">
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.5A8 8 0 1 1 21 12z"/></svg>Study assistant</button>
+<aside id="ai" class="hidden fixed bottom-4 right-4 z-40 flex-col w-[min(25rem,calc(100vw-2rem))] h-[34rem] max-h-[calc(100vh-2rem)] bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden" aria-label="Study assistant">
+  <div class="flex items-center justify-between bg-navy-900 text-white px-4 py-3">
+    <div><p class="font-serif font-bold leading-none">Study assistant</p><p id="aiCtx" class="text-xs text-blue-200 mt-1"></p></div>
+    <button id="aiClose" class="p-1 rounded hover:bg-white/10" aria-label="Close assistant"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div id="aiLog" class="flex-1 overflow-y-auto p-4 space-y-3 text-sm bg-slate-50"></div>
+  <div id="aiChips" class="flex flex-wrap gap-2 px-3 pt-2"></div>
+  <form id="aiForm" class="flex gap-2 p-3"><input id="aiIn" autocomplete="off" placeholder="Ask about revision, or type quiz" class="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm"><button class="px-4 rounded-lg bg-navy-900 text-white text-sm font-semibold hover:bg-navy-800">Send</button></form>
+</aside>
+
+<script>
+/* ================= CONFIG ================= */
+const YEARS=[2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015];
+const SES=[{key:'mj',label:'May/June',letter:'s'},{key:'on',label:'Oct/Nov',letter:'w'}];
+const VARIANTS=[1,2,3];
+const BASE_PATH='pdfs';      // your PDFs: pdfs/<subjectId>/<code>_<s|w><yy>_<qp|ms>_<paper><variant>.pdf
+const AUTO_LINKS=true;
+const LINKS={};              // manual overrides: LINKS.physics[2025].mj['22']={qp:'url',ms:'url'}
+/* Study assistant: open-ended chat powered by an AI model through YOUR server (see server.js).
+   It receives POST {messages:[{role,content}], subject} and returns {reply}. The API key stays on the
+   server, never in this file. If the server can't be reached (or the file is opened directly from disk),
+   the assistant falls back to a limited offline helper. Set to '' to force offline mode. */
+const AI_ENDPOINT='/api/chat';
+
+const CATS={all:'All',sci:'Sciences',lang:'Languages',hum:'Humanities',biz:'Business',tech:'Computing',fav:'Saved'};
+const S=[
+['physics','Physics','0625','Ph','sci',6,'physics'],['chemistry','Chemistry','0620','Ch','sci',6,'chemistry'],
+['biology','Biology','0610','Bi','sci',6,'biology'],['cs','Computer Science','0478','CS','tech',2,'computer-science'],
+['english','English','0500','En','lang',2,'english-first-language'],['urdu','Urdu','0539','Ur','lang',2,'urdu-as-a-second-language'],
+['pakstudies','Pakistan Studies','0448','PS','hum',2,'pakistan-studies'],['islamiat','Islamiat','0493','Is','hum',2,'islamiyat'],
+['economics','Economics','0455','Ec','biz',2,'economics'],['gp','Global Perspectives (GP)','0457','GP','hum',3,'global-perspectives'],
+['business','Business Studies','0450','BS','biz',2,'business-studies'],['addmaths','Additional Mathematics','0606','AM','sci',2,'additional-mathematics'],
+['history','World History','0470','WH','hum',2,'history'],['accounting','Accounting','0452','Ac','biz',2,'accounting'],
+['ict','Information and Communication Technology (ICT)','0417','IT','tech',3,'information-and-communication-technology'],
+['french','French','0520','Fr','lang',4,'french'],['german','German','0525','De','lang',4,'german']
+].map(([id,name,code,mono,cat,n,slug])=>({id,name,code,mono,cat,slug,papers:Array.from({length:n},(_,i)=>i+1)}));
+
+/* External sources: deep links to the same subject/year on other sites (no files are copied).
+   Slugs are guesses for most subjects; open each once and fix `slug` above if a page 404s. */
+const papa=s=>`https://pastpapers.papacambridge.com/papers/caie/igcse-${s.slug}-${s.code}`;
+const pco=(s,y)=>`https://pastpapers.co/caie/igcse/${s.slug}-${s.code}/${y}`;
+
+/* ================= HELPERS ================= */
+const $=(q,r=document)=>r.querySelector(q), $$=(q,r=document)=>[...r.querySelectorAll(q)];
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const ic=d=>`<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="${d}"/></svg>`;
+const ICON={file:'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5',search:'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4',chat:'M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.5A8 8 0 1 1 21 12z',star:'M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z',check:'M5 13l4 4L19 7',link:'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1'};
+let user=store.get('pp_user',null), cur=null, yr=YEARS[0], cat='all', opens=0;
+const dKey=()=>'pp_d_'+user.email;
+const D=()=>user?store.get(dKey(),{fav:[],done:[]}):{fav:[],done:[]};
+const saveD=d=>store.set(dKey(),d);
+const pk=(s,y,k,p,v)=>`${s.id}-${y}-${k}-${p}${v}`;
+function link(s,y,ses,p,v,t){
+  const c=`${p}${v}`;
+  try{const m=LINKS[s.id][y][ses.key][c][t];if(m)return m}catch(e){}
+  return AUTO_LINKS?`${BASE_PATH}/${s.id}/${s.code}_${ses.letter}${String(y).slice(-2)}_${t}_${c}.pdf`:'';
+}
+function toast(m){const t=document.createElement('div');t.className='pop bg-navy-900 text-white text-sm px-4 py-2.5 rounded-lg shadow-lg';t.textContent=m;$('#toasts').append(t);setTimeout(()=>t.remove(),2600)}
+
+/* ================= MODALS ================= */
+function openModal(html,mount){const b=$('#modalBox');b.innerHTML=html;$('#modal').classList.remove('hidden');b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');mount&&mount(b);const f=$('input,button',b);f&&f.focus()}
+function closeModal(){$('#modal').classList.add('hidden')}
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal'||e.target.closest('[data-close]'))closeModal()});
+const xBtn=`<button data-close class="absolute top-3 right-3 p-1 rounded hover:bg-slate-100 text-slate-500" aria-label="Close">${ic('M6 6l12 12M18 6 6 18')}</button>`;
+
+/* ---- Auth (front-end demo: accounts live in this browser only) ---- */
+async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+function openAuth(mode='login',msg=''){
+  const su=mode==='signup', tab=(m,l)=>`<button type="button" data-mode="${m}" class="flex-1 py-2 text-sm font-semibold rounded-md ${m===mode?'bg-white shadow text-navy-900':'text-slate-500'}">${l}</button>`;
+  const inp=(id,l,t,ph)=>`<label class="block text-sm font-medium text-slate-700">${l}<input id="${id}" type="${t}" placeholder="${ph}" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-normal"></label>`;
+  openModal(`<div class="relative p-6">${xBtn}
+    <h2 class="font-serif text-2xl font-bold text-navy-900">${su?'Create your account':'Welcome back'}</h2>
+    <p class="text-sm text-slate-500 mt-1">${esc(msg)||'Save subjects and track the papers you have finished.'}</p>
+    <div class="flex gap-1 bg-slate-100 p-1 rounded-lg mt-4">${tab('login','Log in')}${tab('signup','Sign up')}</div>
+    <form id="authForm" class="mt-4 space-y-3" novalidate>
+      ${su?inp('aName','Name','text','Your name'):''}${inp('aEmail','Email','email','you@example.com')}
+      <div>${inp('aPass','Password','password',su?'At least 8 characters':'Your password')}
+        <label class="flex items-center gap-2 mt-2 text-xs text-slate-500"><input id="showPw" type="checkbox">Show password</label></div>
+      <p id="aErr" class="text-sm text-red-600 min-h-[1.25rem]" role="alert"></p>
+      <button class="w-full py-2.5 rounded-lg bg-navy-900 text-white font-semibold text-sm hover:bg-navy-800">${su?'Create account':'Log in'}</button>
+    </form>
+    <p class="text-xs text-slate-400 mt-4">Demo only: accounts are stored in this browser. Connect a real backend before launch.</p></div>`,b=>{
+    $$('[data-mode]',b).forEach(x=>x.onclick=()=>openAuth(x.dataset.mode,msg));
+    $('#showPw').onchange=e=>$('#aPass').type=e.target.checked?'text':'password';
+    $('#authForm').onsubmit=async e=>{
+      e.preventDefault();const err=m=>$('#aErr').textContent=m;
+      const email=$('#aEmail').value.trim().toLowerCase(),pw=$('#aPass').value,name=su?$('#aName').value.trim():'';
+      if(su&&!name)return err('Enter your name.');
+      if(!/^\S+@\S+\.\S+$/.test(email))return err('Enter a valid email address.');
+      if(pw.length<8&&su)return err('Use a password of at least 8 characters.');
+      const users=store.get('pp_users',{}),h=await sha(email+pw);
+      if(su){if(users[email])return err('That email already has an account. Log in instead.');users[email]={name,h};store.set('pp_users',users)}
+      else if(!users[email]||users[email].h!==h)return err('Email or password is incorrect.');
+      user={name:users[email].name,email};store.set('pp_user',user);closeModal();paintAuth();route();toast(su?`Account created. Welcome, ${user.name}.`:`Logged in as ${user.name}.`);
+    }});
+}
+function paintAuth(){
+  $('#authArea').innerHTML=user?`<span class="hidden sm:inline text-sm text-blue-100">${esc(user.name)}</span><button id="logout" class="px-3 py-1.5 rounded-md border border-white/30 text-sm hover:bg-white/10">Log out</button>`
+   :`<button data-auth="login" class="px-3 py-1.5 rounded-md text-sm hover:bg-white/10">Log in</button><button data-auth="signup" class="px-3 py-1.5 rounded-md bg-white text-navy-900 text-sm font-semibold hover:bg-navy-100">Sign up</button>`;
+  const f=D().fav.length;
+  $('#cta').innerHTML=user?`<p class="font-serif text-2xl font-bold text-navy-900">Ready to practise?</p><a href="#/subjects" class="inline-block mt-4 px-5 py-2.5 rounded-lg bg-navy-900 text-white text-sm font-semibold hover:bg-navy-800">Open subjects</a>`
+   :`<p class="font-serif text-2xl font-bold text-navy-900">Keep your place across sessions</p><p class="text-slate-600 mt-1">Create a free account to save subjects and tick off finished papers.</p><button data-auth="signup" class="mt-4 px-5 py-2.5 rounded-lg bg-navy-900 text-white text-sm font-semibold hover:bg-navy-800">Create an account</button>`;
+}
+
+/* ---- Paper popup ---- */
+function openPaper(id,y,k,p,v,t){
+  const s=S.find(x=>x.id===id),ses=SES.find(x=>x.key===k),key=pk(s,y,k,p,v);let type=t;
+  const title=`${s.name} ${y} ${ses.label}, Paper ${p}${v}`;
+  if(!user&&++opens===3&&!sessionStorage.nudge){sessionStorage.nudge=1;setTimeout(()=>openAuth('signup','Enjoying the papers? Sign up to save subjects and tick off what you finish.'),400)}
+  openModal(`<div class="relative p-5 w-[min(56rem,92vw)]">${xBtn}
+    <h2 class="font-serif text-xl font-bold text-navy-900 pr-8">${esc(title)}</h2>
+    <div class="flex gap-1 bg-slate-100 p-1 rounded-lg mt-3 w-fit">
+      <button data-t="qp" class="px-4 py-1.5 text-sm font-semibold rounded-md">Question paper</button>
+      <button data-t="ms" class="px-4 py-1.5 text-sm font-semibold rounded-md">Mark scheme</button></div>
+    <iframe id="pv" title="Paper preview" class="mt-3 w-full h-[52vh] rounded-lg border border-slate-200 bg-slate-50"></iframe>
+    <p class="text-xs text-slate-500 mt-2">Preview blank? The file may not be uploaded yet. Open it in a new tab, or find this paper on
+      <a class="text-navy-700 underline" target="_blank" rel="noopener" href="${papa(s)}">PapaCambridge</a> or
+      <a class="text-navy-700 underline" target="_blank" rel="noopener" href="${pco(s,y)}">PastPapers.co</a>.</p>
+    <div class="flex flex-wrap gap-2 mt-3">
+      <a id="dl" download class="px-4 py-2 rounded-lg bg-navy-900 text-white text-sm font-semibold hover:bg-navy-800">Download PDF</a>
+      <a id="nt" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg border border-slate-300 text-sm font-semibold hover:bg-slate-50">Open in new tab</a>
+      <button id="cp" class="px-4 py-2 rounded-lg border border-slate-300 text-sm font-semibold hover:bg-slate-50">Copy link</button>
+      <button id="dn" class="px-4 py-2 rounded-lg border border-slate-300 text-sm font-semibold hover:bg-slate-50 sm:ml-auto"></button></div></div>`,b=>{
+    const dn=()=>$('#dn').textContent=D().done.includes(key)?'Marked as done':'Mark as done';
+    const set=tp=>{type=tp;const u=link(s,y,ses,p,v,tp);$('#pv').src=u;$('#dl').href=$('#nt').href=u;
+      $$('[data-t]',b).forEach(x=>x.className='px-4 py-1.5 text-sm font-semibold rounded-md '+(x.dataset.t===tp?'bg-white shadow text-navy-900':'text-slate-500'))};
+    $$('[data-t]',b).forEach(x=>x.onclick=()=>set(x.dataset.t));set(type);dn();
+    $('#cp').onclick=async()=>{const u=new URL(link(s,y,ses,p,v,type),location.href).href;try{await navigator.clipboard.writeText(u);toast('Link copied')}catch(e){toast('Copy failed. Use Open in new tab.')}};
+    $('#dn').onclick=()=>{if(!user)return openAuth('login','Log in to track finished papers.');
+      const d=D(),i=d.done.indexOf(key);i<0?d.done.push(key):d.done.splice(i,1);saveD(d);dn();toast(i<0?'Marked as done':'Marked as not done');if(cur)renderSubject()};
+  });
+}
+
+/* ================= VIEWS ================= */
+function renderHome(){
+  $('#features').innerHTML=[['file','Question papers and mark schemes','Every paper has a QP and an MS, grouped by year, session and variant.'],
+   ['search','Instant subject search','Find a subject by name or code as you type.'],['chat','Study assistant','Get a revision plan, a quick quiz or exam tips for the subject you are viewing.'],
+   ['star','Save your subjects','Log in to star subjects and keep them one click away.'],['check','Track your progress','Tick off finished papers and watch each year fill up.'],
+   ['link','More sources','Jump to PapaCambridge or PastPapers.co for the same subject and year.']]
+   .map(([i,h,t])=>`<div class="bg-white border border-slate-200 rounded-xl p-5 hover:border-navy-700 hover:shadow-md transition"><span class="grid place-items-center w-10 h-10 rounded-lg bg-navy-50 text-navy-800">${ic(ICON[i])}</span><h3 class="font-semibold text-navy-900 mt-3">${h}</h3><p class="text-sm text-slate-500 mt-1">${t}</p></div>`).join('');
+  $$('[data-count]').forEach(el=>{const n=+el.dataset.count,t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/900);el.textContent=Math.round(n*p);p<1&&requestAnimationFrame(f)})(t0)});
+}
+function renderSubjects(){
+  const q=$('#q').value.toLowerCase().replace(/[^a-z0-9]/g,''),fav=D().fav;
+  $('#chips').innerHTML=Object.entries(CATS).filter(([k])=>k!=='fav'||user).map(([k,l])=>`<button data-cat="${k}" class="px-4 py-1.5 rounded-full text-sm font-medium border transition ${k===cat?'bg-navy-900 border-navy-900 text-white':'bg-white border-slate-300 text-slate-600 hover:border-navy-700'}">${l}</button>`).join('');
+  const list=S.filter(s=>(cat==='all'||(cat==='fav'?fav.includes(s.id):s.cat===cat))&&(s.name+s.code).toLowerCase().replace(/[^a-z0-9]/g,'').includes(q));
+  $('#grid').innerHTML=list.map(s=>`<div class="relative group bg-white border border-slate-200 rounded-xl hover:border-navy-700 hover:shadow-md transition">
+    <a href="#/s/${s.id}" class="flex items-center gap-4 p-4 pr-14"><span class="grid place-items-center w-12 h-12 shrink-0 rounded-lg bg-navy-50 text-navy-800 font-serif font-bold text-lg group-hover:bg-navy-900 group-hover:text-white transition">${s.mono}</span>
+    <span class="min-w-0"><span class="block font-semibold text-navy-900 leading-snug">${esc(s.name)}</span><span class="block text-sm text-slate-500">Code ${s.code}</span></span></a>
+    <button data-fav="${s.id}" aria-pressed="${fav.includes(s.id)}" aria-label="Save ${esc(s.name)}" class="absolute top-3 right-3 p-2 rounded-lg hover:bg-navy-50 ${fav.includes(s.id)?'text-amber-500':'text-slate-300'}"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="${fav.includes(s.id)?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="${ICON.star}"/></svg></button></div>`).join('');
+  $('#count').textContent=`${list.length} of ${S.length} subjects`;
+  $('#empty').classList.toggle('hidden',list.length>0);
+}
+function renderSubject(){
+  const s=cur,d=D(),total=SES.length*s.papers.length*VARIANTS.length,done=d.done.filter(k=>k.startsWith(`${s.id}-${yr}-`)).length;
+  $('#v-subject').innerHTML=`<a href="#/subjects" class="inline-flex items-center gap-1 text-sm font-medium text-navy-700 hover:text-navy-900 mb-5">${ic('m15 18-6-6 6-6')}All subjects</a>
+  <div class="flex flex-wrap items-center gap-4">
+    <span class="grid place-items-center w-14 h-14 rounded-xl bg-navy-900 text-white font-serif font-bold text-xl">${s.mono}</span>
+    <div class="min-w-0"><h1 class="font-serif text-3xl font-bold text-navy-900">${esc(s.name)}</h1><p class="text-sm text-slate-500">IGCSE ${s.code}</p></div>
+    <div class="sm:ml-auto flex flex-wrap gap-2 text-sm"><a target="_blank" rel="noopener" href="${papa(s)}" class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:border-navy-700">PapaCambridge</a><a target="_blank" rel="noopener" href="${pco(s,yr)}" class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:border-navy-700">PastPapers.co ${yr}</a><button data-ai class="px-3 py-1.5 rounded-lg bg-navy-900 text-white hover:bg-navy-800">Ask assistant</button></div></div>
+  <div class="mt-6 flex flex-wrap gap-2" role="tablist" aria-label="Exam year">${YEARS.map(y=>`<button role="tab" aria-selected="${y===yr}" data-year="${y}" class="px-4 py-1.5 rounded-full text-sm font-medium border transition ${y===yr?'bg-navy-900 border-navy-900 text-white':'bg-white border-slate-300 text-slate-600 hover:border-navy-700'}">${y}</button>`).join('')}</div>
+  <div class="mt-4 max-w-sm"><div class="flex justify-between text-xs text-slate-500 mb-1"><span>${yr} progress</span><span>${done} of ${total} done</span></div><div class="h-2 rounded-full bg-slate-200 overflow-hidden"><div class="h-full bg-navy-700 transition-all" style="width:${done/total*100}%"></div></div></div>
+  <div class="mt-5 grid gap-5 md:grid-cols-2">${SES.map(ses=>`<div class="bg-white border border-slate-200 rounded-xl overflow-hidden"><h2 class="px-4 py-3 bg-navy-50 border-b border-slate-200 font-serif font-semibold text-navy-900">${yr} · ${ses.label}</h2>
+    <ul class="divide-y divide-slate-100 max-h-[30rem] overflow-y-auto">${s.papers.flatMap(p=>VARIANTS.map(v=>{const k=pk(s,yr,ses.key,p,v),o=`${s.id}|${yr}|${ses.key}|${p}|${v}`;
+      return `<li class="flex items-center justify-between gap-3 px-4 py-2.5"><span class="flex items-center gap-2 text-sm">${d.done.includes(k)?`<span class="text-emerald-600">${ic(ICON.check)}</span>`:''}Paper ${p}<span class="text-slate-400">Variant ${v} (${p}${v})</span></span>
+      <span class="flex gap-2">${['qp','ms'].map(t=>`<button data-open="${o}|${t}" class="w-14 py-1.5 rounded-md text-xs font-semibold bg-navy-900 text-white hover:bg-navy-700">${t.toUpperCase()}</button>`).join('')}</span></li>`})).join('')}</ul></div>`).join('')}</div>`;
+}
+function route(){
+  const [a,b]=location.hash.replace(/^#\/?/,'').split('/');
+  const sj=a==='s'?S.find(x=>x.id===b):null,view=sj?'subject':a==='subjects'?'subjects':'home';
+  cur=sj;['home','subjects','subject'].forEach(v=>$('#v-'+v).classList.toggle('hidden',v!==view));
+  $$('[data-nav]').forEach(l=>l.classList.toggle('bg-white/15',l.dataset.nav===(view==='home'?'home':'subjects')));
+  if(view==='home')renderHome();if(view==='subjects')renderSubjects();if(view==='subject')renderSubject();
+  document.title=sj?`${sj.name} Past Papers | IGCSE Archive`:'IGCSE Past Papers Archive';
+  $('#aiCtx').textContent=sj?`Studying: ${sj.name}`:'Revision plans, quizzes and tips';scrollTo(0,0);
+}
+
+/* ================= STUDY ASSISTANT ================= */
+const QUIZ={physics:[['Which quantity is a vector?',['Speed','Mass','Velocity','Energy'],2,'Velocity has both size and direction.'],['Which equation gives pressure?',['p = F/A','p = F x A','p = m/V','p = A/F'],0,'Pressure is force divided by area.']],
+chemistry:[['What is the pH of a neutral solution at 25 C?',['0','7','10','14'],1,'Pure water is neutral at pH 7.'],['Which gas turns limewater milky?',['Oxygen','Hydrogen','Carbon dioxide','Nitrogen'],2,'Carbon dioxide forms insoluble calcium carbonate.']],
+biology:[['Where does photosynthesis happen?',['Mitochondria','Chloroplasts','Nucleus','Ribosomes'],1,'Chloroplasts contain chlorophyll.'],['Enzymes are made of which molecules?',['Lipids','Carbohydrates','Proteins','Nucleic acids'],2,'Enzymes are proteins that act as biological catalysts.']],
+cs:[['What is binary 1010 in denary?',['8','10','12','14'],1,'8 + 2 = 10.'],['Which is secondary storage?',['RAM','Cache','Register','SSD'],3,'An SSD keeps data without power; RAM, cache and registers do not.']],
+economics:[['Opportunity cost is...',['The money price paid','The next best alternative given up','Total cost of production','A tax on choices'],1,'It is the value of the best option you gave up.'],['Demand rises while supply is fixed. Price...',['Falls','Stays the same','Rises','Becomes zero'],2,'More demand against the same supply pushes price up.']],
+accounting:[['Which is a current asset?',['Machinery','Inventory','Capital','Loan'],1,'Inventory is expected to be sold within a year.'],['The accounting equation is...',['Assets = Liabilities + Capital','Assets = Capital - Liabilities','Profit = Assets','Capital = Assets + Liabilities'],0,'Everything the business owns is funded by owners or lenders.']]};
+const TIPS={sci:'Show every step of your working and carry units. Learn command words (state, describe, explain) and match the answer length to the marks.',lang:'Practise a little every day. For writing, plan in two minutes, vary sentence structure and leave time to proofread. For listening and reading, read the questions first.',hum:'Structure longer answers as point, evidence, explanation. Learn dates, terms and case studies, and answer the exact question asked.',biz:'Define terms, apply them to the case in the question, then evaluate. Practise calculations until the formulas are automatic.',tech:'Trace code and algorithms by hand, learn key terms exactly, and for practical papers practise under timed conditions.'};
+const AL=[[/\bict\b/,'ict'],[/\bcs\b|computer/,'cs'],[/\bgp\b|global/,'gp'],[/add(itional)? ?math/,'addmaths'],[/pakistan/,'pakstudies'],[/islam/,'islamiat'],[/business/,'business'],[/history/,'history']];
+let chat=[],quiz=null;
+const fmtQ=()=>{const q=quiz.list[quiz.i];return `Question ${quiz.i+1} of ${quiz.list.length}: ${q[0]}\n${q[1].map((o,i)=>'ABCD'[i]+') '+o).join('\n')}`};
+function offline(t){
+  const l=t.toLowerCase();
+  if(quiz){if(/^(stop|quit|exit)/.test(l)){quiz=null;return 'Quiz stopped.'}
+    const m=l.match(/^\(?([a-d])\b/);if(!m)return 'Reply with A, B, C or D, or type stop.';
+    const q=quiz.list[quiz.i],ok='abcd'.indexOf(m[1])===q[2];if(ok)quiz.score++;
+    let r=(ok?'Correct. ':`Not quite. The answer is ${'ABCD'[q[2]]}. `)+q[3];quiz.i++;
+    if(quiz.i>=quiz.list.length){r+=`\n\nQuiz finished: ${quiz.score} out of ${quiz.list.length}. Pick a past paper on your weakest topic next.`;quiz=null}else r+='\n\n'+fmtQ();
+    return r}
+  const hit=AL.find(([re])=>re.test(l)),s=(hit&&S.find(x=>x.id===hit[1]))||S.find(x=>l.includes(x.name.toLowerCase().split(' (')[0]))||cur;
+  if(/quiz|test me/.test(l)){const L=s&&QUIZ[s.id];
+    if(!L)return `I have built-in quizzes for ${Object.keys(QUIZ).map(k=>S.find(x=>x.id===k).name).join(', ')}. Open one of those subjects or name it, e.g. "quiz me on Biology".`;
+    quiz={list:L,i:0,score:0};return `${s.name} quiz. Reply with A, B, C or D.\n\n${fmtQ()}`}
+  if(/plan|schedule|timetable|revision/.test(l)){let n=+((l.match(/(\d+)\s*(day|week)/)||[])[1]||0);if(/week/.test(l)&&n)n*=7;
+    if(!n)return `How long until your exam? For example: "Make a 30 day plan for ${s?s.name:'Physics'}".`;
+    const a=Math.max(1,Math.round(n*.5)),b=Math.max(1,Math.round(n*.3));
+    return `${n}-day plan${s?' for '+s.name:''}:\n\nDays 1 to ${a}: learn and summarise one syllabus topic a day, then answer 5 to 10 topic questions.\nDays ${a+1} to ${a+b}: one timed past paper a day. Mark it with the mark scheme and list every lost mark.\nDays ${a+b+1} to ${n}: redo your weakest topics, then sit full papers under exam conditions.\n\nKeep the final day light: rest and skim your error list.`}
+  if(/tip|technique|exam|advice/.test(l))return s?`${s.name}: ${TIPS[s.cat]}`:`General: ${TIPS.sci}`;
+  if(/past ?paper|how (do|to)|use/.test(l))return 'A good routine: 1) attempt a paper timed with no notes. 2) Mark it using the mark scheme. 3) Write down each lost mark and why. 4) Revise those topics. 5) Attempt a different variant a few days later.';
+  return 'Offline mode only covers a few things:\n- "Make a 30 day plan for Physics"\n- "Quiz me on Chemistry"\n- "Exam tips for English"\n\nFor open questions, connect the AI server (see server.js).';
+}
+const md=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`\n]+)`/g,'<code class="bg-slate-100 px-1 rounded">$1</code>').replace(/^(\s*)[-*] /gm,'$1\u2022 ');
+async function reply(t){
+  if(!AI_ENDPOINT)return offline(t);
+  try{
+    const r=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:chat.slice(-20),subject:cur?cur.name:null})});
+    const d=await r.json().catch(()=>({}));
+    if(d.reply)return d.reply;
+    throw new Error(r.status);
+  }catch(e){return 'I could not reach the AI server, so I am in offline mode and can only make revision plans, run short quizzes and share exam tips.\n\n'+offline(t)}
+}
+function say(role,text){const d=document.createElement('div');d.className=role==='user'?'ml-auto max-w-[85%] bg-navy-900 text-white rounded-2xl rounded-br-sm px-3 py-2 whitespace-pre-wrap':'mr-auto max-w-[90%] bg-white border border-slate-200 rounded-2xl rounded-bl-sm px-3 py-2 whitespace-pre-wrap';d.textContent=text;$('#aiLog').append(d);$('#aiLog').scrollTop=1e9;return d}
+async function ask(t){
+  t=t.trim();if(!t)return;say('user',t);chat.push({role:'user',content:t});const w=say('bot','Thinking...');
+  const r=await reply(t);await new Promise(x=>setTimeout(x,350));w.innerHTML=md(r);chat.push({role:'assistant',content:r});$('#aiLog').scrollTop=1e9;
+}
+function openAI(){$('#ai').classList.remove('hidden');$('#ai').classList.add('flex','pop');$('#aiBtn').classList.add('hidden');$('#aiCtx').textContent=cur?`Studying: ${cur.name}`:'Revision plans, quizzes and tips';
+  if(!chat.length)say('bot',`Hi${user?' '+user.name:''}. I can build a revision plan, quiz you or share exam tips${cur?' for '+cur.name:''}. Pick a shortcut or type a question.`);$('#aiIn').focus()}
+function closeAI(){$('#ai').classList.add('hidden');$('#ai').classList.remove('flex');$('#aiBtn').classList.remove('hidden')}
+$('#aiChips').innerHTML=['Make a 30 day plan','Quiz me','Exam tips','Use past papers'].map(c=>`<button class="px-3 py-1 rounded-full border border-slate-300 text-xs hover:border-navy-700 hover:bg-navy-50">${c}</button>`).join('');
+$('#aiChips').onclick=e=>{const b=e.target.closest('button');if(b)ask(b.textContent+(cur&&!/past/i.test(b.textContent)?' for '+cur.name:''))};
+$('#aiForm').onsubmit=e=>{e.preventDefault();const v=$('#aiIn').value;$('#aiIn').value='';ask(v)};
+$('#aiClose').onclick=closeAI;
+
+/* ================= EVENTS ================= */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-auth],[data-ai],[data-open],[data-year],[data-cat],[data-fav],#logout');if(!t)return;
+  if(t.dataset.auth)openAuth(t.dataset.auth);
+  else if(t.hasAttribute('data-ai'))openAI();
+  else if(t.dataset.open)openPaper(...t.dataset.open.split('|').map((x,i)=>i===1||i===3||i===4?+x:x));
+  else if(t.dataset.year){yr=+t.dataset.year;renderSubject()}
+  else if(t.dataset.cat){cat=t.dataset.cat;renderSubjects()}
+  else if(t.dataset.fav){if(!user)return openAuth('login','Log in to save subjects.');const d=D(),i=d.fav.indexOf(t.dataset.fav);i<0?d.fav.push(t.dataset.fav):d.fav.splice(i,1);saveD(d);toast(i<0?'Subject saved':'Removed from saved');renderSubjects()}
+  else if(t.id==='logout'){user=null;store.set('pp_user',null);cat=cat==='fav'?'all':cat;paintAuth();route();toast('Logged out')}
+});
+$('#q').addEventListener('input',renderSubjects);
+$('#heroQ').addEventListener('input',e=>{
+  const q=e.target.value.toLowerCase().replace(/[^a-z0-9]/g,''),m=q?S.filter(s=>(s.name+s.code).toLowerCase().replace(/[^a-z0-9]/g,'').includes(q)).slice(0,5):[];
+  $('#heroList').innerHTML=m.map(s=>`<li><a href="#/s/${s.id}" class="flex justify-between px-4 py-2.5 hover:bg-navy-50"><span>${esc(s.name)}</span><span class="text-slate-400">${s.code}</span></a></li>`).join('')||(q?'<li class="px-4 py-2.5 text-slate-500">No subject found</li>':'');
+  $('#heroList').classList.toggle('hidden',!q)});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeModal();closeAI()}
+  if(e.key==='/'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();location.hash.startsWith('#/subjects')?$('#q').focus():$('#heroQ').focus()}});
+window.addEventListener('hashchange',route);
+paintAuth();route();
+</script>
+</body>
+</html>
